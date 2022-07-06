@@ -1,0 +1,200 @@
+<!-- This is a general and build that collects common targets -->
+<project name="logicaldoc" default="init-all" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+    <property environment="env" />
+    <property file="${user.home}/logicaldoc-dev.properties" />
+    <path id="ext.classpath">
+        <fileset dir="${logicaldoc.devroot}/build/ant/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <target name="task-definitions">
+        <taskdef resource="net/sf/antcontrib/antlib.xml">
+            <classpath refid="ext.classpath" />
+        </taskdef>
+        <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant">
+            <classpath refid="ext.classpath" />
+        </typedef>
+        <echo>${logicaldoc.devroot}</echo>
+    </target>
+    <target name="init-all" depends="task-definitions">
+        <trycatch property="error" reference="exception">
+            <try>
+                <artifact:pom file="pom.xml" id="pom" />
+            </try>
+            <catch>
+                <echo>${error}</echo>
+            </catch>
+        </trycatch>
+        <echo>LogicalDOC environment ready</echo>
+    </target>
+    <target name="schema-export" depends="init-all" description="Sql schema creation from Hibernate mappings">
+        <schemaexport quiet="no" text="yes" drop="no" delimiter=";" output="target/schema-export.sql">
+            <fileset dir="${logicaldoc.devroot}">
+                <include name="**/src/main/resources/mappings/*.hbm.xml" />
+            </fileset>
+        </schemaexport>
+    </target>
+    
+    <target name="fix-sql" depends="task-definitions">
+        <delete dir="fix-sql-tmp" failonerror="false" />
+        <mkdir dir="fix-sql-tmp" />    
+        <copy todir="fix-sql-tmp" verbose="true" preservelastmodified="true">
+            <fileset dir="${logicaldoc.devroot}" includes="**/src/main/resources/**/*.sql.mysql"/>
+            <globmapper from="*.sql.mysql" to="*.sql.mariadb"/>
+        </copy>
+        <copy todir="${logicaldoc.devroot}" verbose="true" preservelastmodified="true">
+            <fileset dir="fix-sql-tmp" includes="**"/>
+        </copy>
+        <delete dir="fix-sql-tmp" failonerror="false" />
+    </target>
+    <target name="prepare-sql" depends="task-definitions,fix-sql">
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <copy todir="${logicaldoc.devroot}/logicaldoc-sql" flatten="true">
+            <fileset dir="${logicaldoc.devroot}">
+                <include name="**/src/main/resources/**/*.sql*" />
+            </fileset>
+        </copy>
+        <zip destfile="${logicaldoc.devroot}/logicaldoc-sql.zip" basedir="${logicaldoc.devroot}/logicaldoc-sql" />
+        <delete dir="${logicaldoc.devroot}/logicaldoc-sql"/>
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <copy file="${logicaldoc.devroot}/logicaldoc-sql.zip" tofile="${logicaldoc.devroot}/logicaldoc-sql-${pom.version}.zip"/>
+    </target>
+    <target name="prepare-community-sql" depends="task-definitions,fix-sql">
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <copy todir="${logicaldoc.devroot}/logicaldoc-community-sql" flatten="true">
+            <fileset dir="${logicaldoc.devroot}/community">
+                <include name="**/src/main/resources/**/*.sql*" />
+            </fileset>
+        </copy>
+        <zip destfile="${logicaldoc.devroot}/logicaldoc-community-sql.zip" basedir="${logicaldoc.devroot}/logicaldoc-community-sql" />
+        <delete dir="${logicaldoc.devroot}/logicaldoc-community-sql"/>
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <move file="${logicaldoc.devroot}/logicaldoc-community-sql.zip" tofile="${logicaldoc.devroot}/logicaldoc-community-sql-${pom.version}.zip"/>
+    </target>
+    
+    <target name="prepare-src" depends="task-definitions">
+        <copy todir="${logicaldoc.devroot}/logicaldoc-src">
+            <fileset dir="${logicaldoc.devroot}">
+                <include name="build/**" />
+                <include name="community/**" />
+                <exclude name="build/poms/*.jar" />
+                <exclude name="community/modules/**" />
+                <exclude name="community/logicaldoc/logicaldoc-benchmark/logs" />
+                <exclude name="community/logicaldoc/logicaldoc-benchmark/report" />
+                <exclude name="**/target/**" />
+                <exclude name="**/null/**" />
+                <exclude name="**/war/WEB-INF/classes/**" />
+                <exclude name="**/war/WEB-INF/lib/**" />
+                <exclude name="**/war/WEB-INF/deploy/**" />
+                <exclude name="**/war/frontend/**" />
+                <exclude name="**/war/common/**" />
+                <exclude name="**/war/setup/**" />
+                <exclude name="**/war/webstart/**" />
+                <exclude name="**/war/gwt-*" />
+                <exclude name="**/.*/**" />
+                <exclude name="**/checkout.bat" />
+                <exclude name="**/checkout.sh" />
+            </fileset>
+        </copy>
+        <copy todir="${logicaldoc.devroot}/logicaldoc-src" file="${logicaldoc.devroot}/build/ant/README.txt" />
+        <zip destfile="${logicaldoc.devroot}/logicaldoc-src.zip" basedir="${logicaldoc.devroot}/logicaldoc-src" />
+        <delete dir="${logicaldoc.devroot}/logicaldoc-src"/>
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <move file="${logicaldoc.devroot}/logicaldoc-src.zip" tofile="${logicaldoc.devroot}/logicaldoc-src-${pom.version}.zip"/>
+    </target>
+    <target name="prepare-workspace">
+        <copy todir="${logicaldoc.devroot}/logicaldoc-workspace">
+            <fileset dir="${logicaldoc.devroot}">
+                <exclude name="**/target/**" />
+                <!--exclude name="**/.project" /> <exclude name="**/.classpath" /> <exclude name="**/.settings/**" /> <exclude name="**/.metadata/**" /> <exclude name="**/docs/**" /-->
+            </fileset>
+        </copy>
+        <zip destfile="${logicaldoc.devroot}/logicaldoc-workspace.zip" basedir="${logicaldoc.devroot}/logicaldoc-workspace" />
+        <delete dir="${logicaldoc.devroot}/logicaldoc-workspace"/>
+    </target>
+    <target name="prepare-javadoc" depends="task-definitions">
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <property name="javadoc.root" value="${logicaldoc.devroot}/logicaldoc-javadoc" />
+        <property name="javadoc.archive" value="${logicaldoc.devroot}/logicaldoc-javadoc-${pom.version}.zip" />
+        <echo>Generate the aggregate javadoc of the Community</echo>
+        <exec executable="mvn.cmd" resolveexecutable="true" searchpath="true" dir="${logicaldoc.devroot}/community/logicaldoc">
+            <arg line="javadoc:aggregate" />
+        </exec>
+        <copy todir="${javadoc.root}/community">
+            <fileset dir="${logicaldoc.devroot}/community/logicaldoc/target/site/apidocs"/>
+        </copy>
+        <echo>Generate the aggregate javadoc of the Enterprise</echo>
+        <exec executable="mvn.cmd" resolveexecutable="true" searchpath="true" dir="${logicaldoc.devroot}/enterprise/logicaldoc">
+            <arg line="javadoc:aggregate" />
+        </exec>
+        <copy todir="${javadoc.root}/enterprise">
+            <fileset dir="${logicaldoc.devroot}/enterprise/logicaldoc/target/site/apidocs" />
+        </copy>
+        <copy file="index.html" tofile="${javadoc.root}/index.html" />
+        <copy file="${logicaldoc.devroot}/community/logicaldoc/logicaldoc-gui/war/skin/images/brand/logo.png" tofile="${javadoc.root}/logo.png" />
+        <tstamp>
+            <format property="YEAR" pattern="yyyy" locale="en" />
+        </tstamp>
+        <replace file="${javadoc.root}/index.html" token="YEAR" value="${YEAR}" />
+        <replace file="${javadoc.root}/index.html" token="RELEASE" value="${pom.version}" />
+        <echo>Pakcage the whole javadoc</echo>
+        <zip destfile="${javadoc.archive}" basedir="${javadoc.root}" />
+        <delete dir="${javadoc.root}"/>
+    </target>
+    <target name="prepare-wsdoc" depends="task-definitions">
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <property name="wsdoc.root" value="${logicaldoc.devroot}/logicaldoc-wsdoc" />
+        <property name="wsdoc.webapp" value="${wsdoc.root}/webapp" />
+        <property name="wsdoc.archive" value="${logicaldoc.devroot}/logicaldoc-wsdoc-${pom.version}.zip" />
+        <mkdir dir="${wsdoc.root}"/>
+        <artifact:dependencies filesetId="dependency.webapp">
+            <dependency groupId="com.logicaldoc" artifactId="logicaldoc-enterprise-webapp" version="${pom.version}" type="war" />
+        </artifact:dependencies>
+        <mkdir dir="${wsdoc.webapp}"/>
+        <copy todir="${wsdoc.webapp}">
+            <fileset refid="dependency.webapp" />
+            <mapper type="flatten" />
+        </copy>
+        <unzip dest="${wsdoc.webapp}">
+            <patternset>
+                <include name="WEB-INF/lib/*.jar"/>
+            </patternset>
+            <fileset dir="${wsdoc.webapp}">
+                <include name="*.war"/>
+            </fileset>
+        </unzip>
+        <java classname="com.logicaldoc.webservice.doc.WebserviceDocGen" fork="true" dir="${wsdoc.root}" classpath="${wsdoc.webapp}/WEB-INF/lib/*">
+            <arg value="${pom.version}" />
+            <arg value="${wsdoc.root}" />
+            <arg value="webservice.soap.AuthService" />
+            <arg value="webservice.soap.DocumentService" />
+            <arg value="webservice.soap.FolderService" />
+            <arg value="webservice.soap.TagService" />
+            <arg value="webservice.soap.SearchService" />
+            <arg value="webservice.soap.SecurityService" />
+            <arg value="webservice.soap.SystemService" />
+            <arg value="webservice.soap.DocumentMetadataService" />
+            <arg value="enterprise.webservice.soap.ArchiveService" />
+            <arg value="enterprise.webservice.soap.EnterpriseDocumentService" />
+            <arg value="enterprise.webservice.soap.EnterpriseSearchService" />
+            <arg value="enterprise.webservice.soap.TaskService" />
+            <arg value="enterprise.webservice.soap.TenantService" />
+            <arg value="sign.webservice.soap.SignService" />
+            <arg value="stamp.webservice.soap.StampService" />
+            <arg value="impex.webservice.soap.ImpexService" />
+            <arg value="report.webservice.soap.ReportService" />
+            <arg value="form.webservice.soap.FormService" />
+            <arg value="audit.webservice.soap.AuditService" />
+            <arg value="workflow.webservice.soap.WorkflowService" />
+            <arg value="split.webservice.soap.SplitService" />
+            <arg value="via.webservice.soap.VIAService" />
+            <arg value="zonalocr.webservice.soap.ZonalOCRService" />
+            <arg value="conversion.webservice.soap.ConversionService" />
+        </java>
+        
+        <echo>Pakcage the whole wsdoc</echo>
+        <delete dir="${wsdoc.webapp}"/>
+        <zip destfile="${wsdoc.archive}" basedir="${wsdoc.root}" />
+        <delete dir="${wsdoc.root}"/>        
+    </target>
+</project>
