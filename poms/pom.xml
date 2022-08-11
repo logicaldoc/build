@@ -29,7 +29,7 @@
         <poi.version>3.16</poi.version>
         <jaxb.version>2.2.11</jaxb.version>
         <pdfbox.version>2.0.24</pdfbox.version>
-        <dependency-check-maven.version>7.1.0</dependency-check-maven.version>
+        <dependency-check-maven.version>7.1.1</dependency-check-maven.version>
     </properties>
     <build>
         <extensions>
