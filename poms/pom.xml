@@ -32,6 +32,7 @@
         <bouncycastle.version>1.70</bouncycastle.version>
         <jetty.version>9.4.49.v20220914</jetty.version>
         <dependency-check-maven.version>7.2.0</dependency-check-maven.version>
+        <jdom.version>2.0.2</jdom.version>
     </properties>
     <build>
         <extensions>
@@ -81,7 +82,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -215,12 +216,7 @@
                 <version>2.5</version>
                 <type>jar</type>
             </dependency>
-            <!-- dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jstl</artifactId>
-                <version>1.2</version>
-                <type>jar</type>
-            </dependency -->
+            <!-- dependency> <groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> <version>1.2</version> <type>jar</type> </dependency -->
             <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>el-api</artifactId>
@@ -400,7 +396,7 @@
             <dependency>
                 <groupId>org.jdom</groupId>
                 <artifactId>jdom</artifactId>
-                <version>2.0.2</version>
+                <version>${jdom.version}</version>
                 <type>jar</type>
                 <exclusions>
                     <exclusion>
@@ -713,7 +709,7 @@
                     <exclusion>
                         <groupId>org.eclipse.jetty.http2</groupId>
                         <artifactId>http2-http-client-transport</artifactId>
-                    </exclusion>                    
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -817,7 +813,7 @@
                     <exclusion>
                         <groupId>org.eclipse.jetty.http2</groupId>
                         <artifactId>http2-http-client-transport</artifactId>
-                    </exclusion>                    
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -1242,6 +1238,11 @@
                 <groupId>org.apache.calcite</groupId>
                 <artifactId>calcite-linq4j</artifactId>
                 <version>1.32.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.15.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
