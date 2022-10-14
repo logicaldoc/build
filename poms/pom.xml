@@ -33,7 +33,7 @@
         <jetty.version>9.4.49.v20220914</jetty.version>
         <dependency-check-maven.version>7.2.0</dependency-check-maven.version>
         <jdom.version>2.0.6.1</jdom.version>
-        <hsql.version>2.2.9</hsql.version>
+        <hsql.version>2.3.6</hsql.version>
     </properties>
     <build>
         <pluginManagement>
@@ -58,7 +58,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>8</release>
+                    <release>11</release>
                     <encoding>iso-8859-1</encoding>
                 </configuration>
             </plugin>
