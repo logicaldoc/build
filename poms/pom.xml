@@ -33,7 +33,7 @@
         <jetty.version>9.4.49.v20220914</jetty.version>
         <dependency-check-maven.version>7.2.0</dependency-check-maven.version>
         <jdom.version>2.0.6.1</jdom.version>
-        <hsqldb.version>2.4.1</hsqldb.version>
+        <hsqldb.version>2.7.0</hsqldb.version>
     </properties>
     <build>
         <pluginManagement>
