@@ -33,7 +33,7 @@
         <jetty.version>9.4.49.v20220914</jetty.version>
         <dependency-check-maven.version>7.2.0</dependency-check-maven.version>
         <jdom.version>2.0.6.1</jdom.version>
-        <hsql.version>2.3.6</hsql.version>
+        <hsqldb.version>2.4.1</hsqldb.version>
     </properties>
     <build>
         <pluginManagement>
@@ -1051,13 +1051,13 @@
             <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
-                <version>${hsql.version}</version>
+                <version>${hsqldb.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>sqltool</artifactId>
-                <version>${hsql.version}</version>
+                <version>${hsqldb.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency>
