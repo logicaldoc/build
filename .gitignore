@@ -1,2 +1,3 @@
 /poms/deployfile.bat
 /poms/target
+/poms/*.jar
