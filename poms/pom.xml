@@ -4,7 +4,7 @@
     <artifactId>logicaldoc-parent-pom</artifactId>
     <name>logicaldoc-parent-pom</name>
     <packaging>pom</packaging>
-    <version>103</version>
+    <version>104</version>
     <description>Parent pom definition</description>
     <scm>
         <connection>scm:svn:https://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</connection>
@@ -1399,11 +1399,16 @@
                 <version>1.15</version>
             </dependency>
             <dependency>
+			     <groupId>com.twelvemonkeys.contrib</groupId>
+			     <artifactId>contrib</artifactId>
+			     <version>3.9.4</version>
+		    </dependency>            
+            <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>4.6.1</version>
                 <scope>test</scope>
-            </dependency>
+            </dependency>            
         </dependencies>
     </dependencyManagement>
     <repositories>
