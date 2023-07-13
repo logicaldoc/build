@@ -439,7 +439,7 @@
                 <artifactId>log4j-web</artifactId>
                 <version>${log4j.version}</version>
                 <type>jar</type>
-            </dependency>            
+            </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j-impl</artifactId>
@@ -1220,10 +1220,10 @@
                 <version>1.1</version>
             </dependency>
             <dependency>
-			     <groupId>com.twelvemonkeys.contrib</groupId>
-			     <artifactId>contrib</artifactId>
-			     <version>3.9.4</version>
-		    </dependency>            
+                <groupId>com.twelvemonkeys.contrib</groupId>
+                <artifactId>contrib</artifactId>
+                <version>3.9.4</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
@@ -1402,13 +1402,18 @@
                 <groupId>org.apache.xmlgraphics</groupId>
                 <artifactId>batik-util</artifactId>
                 <version>1.15</version>
-            </dependency>            
+            </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>4.6.1</version>
                 <scope>test</scope>
-            </dependency>            
+            </dependency>
+            <dependency>
+                <groupId>com.pff</groupId>
+                <artifactId>java-libpst</artifactId>
+                <version>0.9.3</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>
