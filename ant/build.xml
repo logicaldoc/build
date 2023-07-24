@@ -96,6 +96,33 @@
                 <exclude name="**/checkout.sh" />
             </fileset>
         </copy>
+        <copy todir="${logicaldoc.devroot}/logicaldoc-src" failonerror="false">
+            <fileset dir="${logicaldoc.devroot}">
+                <include name="enterprise/**" />
+                <exclude name="**/customers/**" />
+                <exclude name="build" />
+                <exclude name="community" />
+                <exclude name="var" />
+                <exclude name="**/target/**" />
+                <exclude name="**/launcher/**" />
+                <exclude name="**/ghostscript/**" />
+                <exclude name="**/imagemagick/**" />
+                <exclude name="**/openssl/**" />
+                <exclude name="**/tesseract/**" />
+                <exclude name="**/null/**" />
+                <exclude name="**/war/WEB-INF/classes/**" />
+                <exclude name="**/war/WEB-INF/lib/**" />
+                <exclude name="**/war/WEB-INF/deploy/**" />
+                <exclude name="**/war/frontend/**" />
+                <exclude name="**/war/common/**" />
+                <exclude name="**/war/setup/**" />
+                <exclude name="**/war/webstart/**" />
+                <exclude name="**/war/gwt-*" />
+                <exclude name="**/.*/**" />
+                <exclude name="**/checkout.bat" />
+                <exclude name="**/checkout.sh" />
+            </fileset>
+        </copy>        
         <copy todir="${logicaldoc.devroot}/logicaldoc-src" file="${logicaldoc.devroot}/build/ant/README.txt" />
         <zip destfile="${logicaldoc.devroot}/logicaldoc-src.zip" basedir="${logicaldoc.devroot}/logicaldoc-src" />
         <delete dir="${logicaldoc.devroot}/logicaldoc-src"/>
