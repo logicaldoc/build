@@ -123,7 +123,6 @@
                 <version>3.1.1</version>
                 <configuration>
                     <show>public</show>
-                    <additionalJOption>--no-module-directories</additionalJOption>
                     <excludePackageNames>net.sf.*:org.jclouds.*:org.json:com.logicaldoc.scan:com.logicaldoc.scan.*:com.logicaldoc.enterprise.gui.license:com.logicaldoc.enterprise.gui.license.*</excludePackageNames>
                     <additionalDependencies>
                         <additionalDependency>
