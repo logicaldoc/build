@@ -120,7 +120,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.5.0</version>
                 <configuration>
                     <show>public</show>
                     <excludePackageNames>net.sf.*:org.jclouds.*:org.json:com.logicaldoc.scan:com.logicaldoc.scan.*:com.logicaldoc.enterprise.gui.license:com.logicaldoc.enterprise.gui.license.*</excludePackageNames>
