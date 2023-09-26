@@ -5,7 +5,7 @@
     <name>logicaldoc-parent-pom</name>
     <packaging>pom</packaging>
     <version>104</version>
-    <description>Parent pom definition</description>
+    <description>Parent pom definition.</description>
     <scm>
         <connection>scm:svn:https://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</connection>
         <developerConnection>scm:svn:https://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</developerConnection>
@@ -43,6 +43,16 @@
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>3.9.1.2184</version>
                 </plugin>
+			    <plugin>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.3</version>
+                </plugin>
+			    <plugin>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                </plugin>                                  
             </plugins>
         </pluginManagement>
         <extensions>
