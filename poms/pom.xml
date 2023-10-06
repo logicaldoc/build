@@ -25,7 +25,7 @@
         <log4j.version>2.19.0</log4j.version>
         <ant.version>1.10.12</ant.version>
         <httpclient.version>4.5.13</httpclient.version>
-        <jackson.version>2.14.3</jackson.version>
+        <jackson.version>2.15.0</jackson.version>
         <poi.version>4.1.2</poi.version>
         <jaxb.version>2.2.11</jaxb.version>
         <pdfbox.version>2.0.26</pdfbox.version>
@@ -1260,7 +1260,7 @@
             <dependency>
                 <groupId>org.jgroups</groupId>
                 <artifactId>jgroups</artifactId>
-                <version>3.4.4.Final</version>
+                <version>3.6.10.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
@@ -1356,7 +1356,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>31.1-jre</version>
+                <version>32.1.2-jre</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
@@ -1371,7 +1371,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava-gwt</artifactId>
-                <version>31.1-jre</version>
+                <version>32.1.2-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.calcite</groupId>
