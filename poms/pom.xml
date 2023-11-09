@@ -4,7 +4,7 @@
     <artifactId>logicaldoc-parent-pom</artifactId>
     <name>logicaldoc-parent-pom</name>
     <packaging>pom</packaging>
-    <version>104</version>
+    <version>105</version>
     <description>Parent pom definition.</description>
     <scm>
         <connection>scm:svn:https://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</connection>
@@ -20,7 +20,7 @@
         <solr.version>8.11.2</solr.version>
         <gwt.version>2.8.2</gwt.version>
         <smartgwt.version>13.0p</smartgwt.version>
-        <cxf.version>3.5.5</cxf.version>
+        <cxf.version>3.6.2</cxf.version>
         <slf4j.version>1.7.36</slf4j.version>
         <log4j.version>2.19.0</log4j.version>
         <ant.version>1.10.12</ant.version>
