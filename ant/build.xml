@@ -206,6 +206,7 @@
             <arg value="enterprise.webservice.soap.EnterpriseSearchService" />
             <arg value="enterprise.webservice.soap.TaskService" />
             <arg value="enterprise.webservice.soap.TenantService" />
+            <arg value="enterprise.webservice.soap.ReadingRequestService" />
             <arg value="sign.webservice.soap.SignService" />
             <arg value="stamp.webservice.soap.StampService" />
             <arg value="impex.webservice.soap.ImpexService" />
