@@ -148,7 +148,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>${dependency-check-maven.version}</version>
+                <version>${dependency-check-maven.version}</version>				
             </plugin>
         </plugins>
     </build>
@@ -1519,13 +1519,20 @@
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${dependency-check-maven.version}</version>
+				<configuration>
+					<cveValidForHours>72</cveValidForHours>
+					<!-- .Disable Net content-->
+					<assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+					<nugetconfAnalyzerEnabled>false</nugetconfAnalyzerEnabled>
+					<nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>					
+                </configuration>				
                 <reportSets>
                     <reportSet>
                         <reports>
                             <report>aggregate</report>
                         </reports>
                     </reportSet>
-                </reportSets>
+                </reportSets>			
             </plugin>
         </plugins>
     </reporting>
