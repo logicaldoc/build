@@ -1147,7 +1147,7 @@
             <dependency>
                 <groupId>com.google.gwt</groupId>
                 <artifactId>gwt-servlet</artifactId>
-                <version>2.10.0.ld</version>
+                <version>${gwt.version}.ld</version>
             </dependency>
             <dependency>
                 <groupId>com.google.gwt</groupId>
@@ -1526,7 +1526,7 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
+            </plugin>            
         </plugins>
     </reporting>
 </project>
