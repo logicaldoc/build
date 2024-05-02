@@ -1,0 +1,24 @@
+<version>
+    RELEASE
+</version>
+
+<archives>
+    ./RELEASE
+</archives>
+
+<skip_packages>
+   com.logicaldoc.enterprise.md4
+</skip_packages>
+
+<packages>
+  com.logicaldoc.webservice.model
+  com.logicaldoc.webservice.rest.endpoint
+  com.logicaldoc.enterprise.webservice.model
+  com.logicaldoc.enterprise.webservice.rest.endpoint
+  com.logicaldoc.audit.webservice.model
+  com.logicaldoc.conversion.webservice.rest.endpoint
+  com.logicaldoc.form.webservice.model
+  com.logicaldoc.importfolder.webservice.model
+  com.logicaldoc.report.webservice.model
+  com.logicaldoc.workflow.webservice.model
+ </packages>

@@ -129,6 +129,60 @@
         <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
         <move file="${logicaldoc.devroot}/logicaldoc-src.zip" tofile="${logicaldoc.devroot}/logicaldoc-src-${pom.version}.zip"/>
     </target>
+    
+    <target name="prepare-api" depends="task-definitions">
+        <artifact:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <artifact:dependencies filesetId="war.fileset" useScope="runtime">
+            <dependency groupId="com.logicaldoc" artifactId="logicaldoc-enterprise-webapp" version="${pom.version}" type="war" scope="runtime"/>
+        </artifact:dependencies>
+        
+        <property name="api.root" value="${logicaldoc.devroot}/logicaldoc-api/${pom.version}" />
+        
+        <copy todir="${api.root}">
+            <fileset refid="war.fileset" />
+            <mapper type="flatten" />
+        </copy>
+        
+        <unzip dest="${api.root}">
+            <patternset>
+                <include name="WEB-INF/lib/logicaldoc*.jar"/>
+            </patternset>
+            <fileset dir="${api.root}">
+                <include name="*.war"/>
+            </fileset>
+            <mapper type="flatten" />
+        </unzip>        
+        
+        <move file="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar" tofile="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar.obf"/>
+        <unzip src="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar.obf" dest="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin">
+            <patternset>
+                <include name="**/*"/>
+                <exclude name="/com/logicaldoc/enterprise/md4/**"/>
+            </patternset>
+        </unzip>
+        <zip destfile="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar" basedir="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin" />
+        
+        <delete dir="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin"/>
+        <delete>
+            <fileset dir="${api.root}" includes="*.war"/>
+            <fileset dir="${api.root}" includes="*.obf"/>
+        </delete>
+        
+        <copy todir="${api.root}">
+            <fileset dir="${logicaldoc.devroot}/build/ant" includes="compat-*.xml"/>
+            <mapper type="flatten" />
+        </copy>
+        
+        <replace dir="${api.root}" value="${pom.version}">
+           <include name="*.xml"/>
+           <replacetoken>RELEASE</replacetoken>
+        </replace>
+        
+        <zip destfile="${logicaldoc.devroot}/logicaldoc-api.zip" basedir="${api.root}/.." />
+        <delete dir="${api.root}/.."/>
+        <move file="${logicaldoc.devroot}/logicaldoc-api.zip" tofile="${logicaldoc.devroot}/logicaldoc-api-${pom.version}.zip"/>
+    </target>    
+    
     <target name="prepare-workspace">
         <copy todir="${logicaldoc.devroot}/logicaldoc-workspace">
             <fileset dir="${logicaldoc.devroot}">
@@ -158,6 +212,7 @@
             <fileset dir="${logicaldoc.devroot}/enterprise/logicaldoc/target/site/apidocs" />
         </copy>
         <copy file="index.html" tofile="${javadoc.root}/index.html" />
+        <copy file=".htaccess" tofile="${javadoc.root}/.htaccess" />
         <copy file="${logicaldoc.devroot}/community/logicaldoc/logicaldoc-gui/war/skin/images/brand/logo.png" tofile="${javadoc.root}/logo.png" />
         <tstamp>
             <format property="YEAR" pattern="yyyy" locale="en" />
@@ -222,6 +277,7 @@
         
         <echo>Pakcage the whole wsdoc</echo>
         <delete dir="${wsdoc.webapp}"/>
+        <copy file=".htaccess" tofile="${wsdoc.root}/.htaccess" />
         <zip destfile="${wsdoc.archive}" basedir="${wsdoc.root}" />
         <delete dir="${wsdoc.root}"/>        
     </target>

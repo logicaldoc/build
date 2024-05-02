@@ -1,0 +1,34 @@
+<version>
+    RELEASE
+</version>
+
+<archives>
+    ./RELEASE
+</archives>
+
+<skip_packages>
+   com.logicaldoc.enterprise.md4
+</skip_packages>
+
+<packages>
+  com.logicaldoc.webservice.model
+  com.logicaldoc.webservice.soap.endpoint
+  com.logicaldoc.enterprise.webservice.model
+  com.logicaldoc.enterprise.webservice.soap.endpoint
+  com.logicaldoc.audit.webservice.model
+  com.logicaldoc.audit.webservice.soap.endpoint
+  com.logicaldoc.conversion.webservice.soap.endpoint
+  com.logicaldoc.form.webservice.model
+  com.logicaldoc.form.webservice.soap.endpoint
+  com.logicaldoc.impex.webservice.soap.endpoint
+  com.logicaldoc.importfolder.webservice.model
+  com.logicaldoc.importfolder.webservice.soap.endpoint
+  com.logicaldoc.report.webservice.model
+  com.logicaldoc.report.webservice.soap.endpoint
+  com.logicaldoc.sign.webservice.soap.endpoint
+  com.logicaldoc.split.webservice.soap.endpoint
+  com.logicaldoc.stamp.webservice.soap.endpoint
+  com.logicaldoc.workflow.webservice.model
+  com.logicaldoc.workflow.webservice.soap.endpoint
+  com.logicaldoc.zonalocr.webservice.soap.endpointt    
+</packages>

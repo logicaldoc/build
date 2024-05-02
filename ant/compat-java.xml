@@ -1,0 +1,11 @@
+<version>
+    RELEASE
+</version>
+
+<archives>
+    ./RELEASE
+</archives>
+
+<skip_packages>
+   com.logicaldoc.enterprise.md4
+</skip_packages>
