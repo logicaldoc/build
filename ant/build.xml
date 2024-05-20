@@ -245,7 +245,7 @@
                 <include name="*.war"/>
             </fileset>
         </unzip>
-        <java classname="com.logicaldoc.webservice.doc.WebserviceDocGen" fork="true" dir="${wsdoc.root}" classpath="${wsdoc.webapp}/WEB-INF/lib/*">
+        <java classname="com.logicaldoc.webservice.doc.WebserviceDocGen" fork="true" dir="${wsdoc.root}" classpath="">
             <arg value="${pom.version}" />
             <arg value="${wsdoc.root}" />
             <arg value="webservice.soap.AuthService" />
@@ -273,6 +273,11 @@
             <arg value="via.webservice.soap.VIAService" />
             <arg value="zonalocr.webservice.soap.ZonalOCRService" />
             <arg value="conversion.webservice.soap.ConversionService" />
+            
+            <classpath>
+              <!--pathelement path="${logicaldoc.devroot}/community/logicaldoc/logicaldoc-webservice/target/classes"/ -->
+              <pathelement path="${wsdoc.webapp}/WEB-INF/lib/*"/>
+            </classpath>
         </java>
         
         <echo>Pakcage the whole wsdoc</echo>
