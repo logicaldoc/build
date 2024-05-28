@@ -4,7 +4,7 @@
     <artifactId>logicaldoc-parent-pom</artifactId>
     <name>logicaldoc-parent-pom</name>
     <packaging>pom</packaging>
-    <version>106</version>
+    <version>107</version>
     <description>Parent pom definition.</description>
     <scm>
         <connection>scm:svn:https://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</connection>
@@ -12,13 +12,15 @@
         <url>http://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</url>
     </scm>
     <properties>
+        <source.level>17</source.level>
+        <gwt.version>2.11.0</gwt.version>
+        <gwt.source.level>11</gwt.source.level>
         <spring.version>5.3.30</spring.version>
         <spring-security.version>5.5.8</spring-security.version>
         <hibernate.version>5.6.11.Final</hibernate.version>
         <ehcache.version>2.10.9.2</ehcache.version>
         <lucene.version>8.11.2</lucene.version>
         <solr.version>8.11.2</solr.version>
-        <gwt.version>2.9.0</gwt.version>
         <smartgwt.version>13.0p</smartgwt.version>
         <cxf.version>3.6.2</cxf.version>
         <slf4j.version>1.7.36</slf4j.version>
@@ -68,10 +70,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>17</release>
+                    <release>${source.level}</release>
                     <encoding>iso-8859-1</encoding>
-					<source>17</source>
-					<target>17</target>
+					<source>${source.level}</source>
+					<target>${source.level}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -150,6 +152,21 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${dependency-check-maven.version}</version>
             </plugin>
+            <plugin>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                  <sourceLevel>${gwt.source.level}</sourceLevel>
+                  <localWorkers>2</localWorkers>
+                  <webappDirectory>war</webappDirectory>
+                  <jvmArgs>
+                     <jvmArg>-showversion</jvmArg>
+                     <jvmArg>-Xmx2048M</jvmArg>
+                  </jvmArgs>                  
+                </configuration>                
+            </plugin>            
         </plugins>
     </build>
     <dependencyManagement>
@@ -1145,12 +1162,17 @@
                 <version>2.3.2</version>
             </dependency>
             <dependency>
-                <groupId>com.google.gwt</groupId>
+              <groupId>org.gwtproject</groupId>
+              <artifactId>gwt-dev</artifactId>
+              <version>${gwt.version}</version>
+            </dependency>            
+            <dependency>
+                <groupId>org.gwtproject</groupId>
                 <artifactId>gwt-servlet</artifactId>
-                <version>${gwt.version}.ld</version>
+                <version>${gwt.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.google.gwt</groupId>
+                <groupId>org.gwtproject</groupId>
                 <artifactId>gwt-user</artifactId>
                 <version>${gwt.version}</version>
             </dependency>
@@ -1439,6 +1461,11 @@
     </dependencyManagement>
     <repositories>
         <repository>
+            <id>logicaldoc</id>
+            <name>LogicalDOC Repository</name>
+            <url>https://logicaldoc.sourceforge.net/maven</url>
+        </repository>    
+        <repository>
             <id>central</id>
             <name>Central Repository</name>
             <url>https://repo1.maven.org/maven2/</url>
@@ -1447,11 +1474,6 @@
             <id>eclipse-releases</id>
             <name>Eclipse Releases</name>
             <url>https://repo.eclipse.org/content/groups/releases/</url>
-        </repository>
-        <repository>
-            <id>logicaldoc</id>
-            <name>LogicalDOC Repository</name>
-            <url>https://logicaldoc.sourceforge.net/maven</url>
         </repository>
         <repository>
             <id>google-api-services</id>
