@@ -26,7 +26,7 @@
         <slf4j.version>1.7.36</slf4j.version>
         <log4j.version>2.19.0</log4j.version>
         <ant.version>1.10.12</ant.version>
-        <httpclient.version>4.5.14</httpclient.version>
+        <httpclient.version>5.2.1</httpclient.version>
         <jackson.version>2.15.0</jackson.version>
         <poi.version>4.1.2</poi.version>
         <jaxb.version>2.2.11</jaxb.version>
@@ -187,10 +187,10 @@
                 <version>2.1.1</version>
             </dependency>
             <dependency>
-                <groupId>org.glassfish</groupId>
+                <groupId>org.glassfish.main.javaee-api</groupId>
                 <artifactId>javax.jws</artifactId>
-                <version>3.1.1</version>
-            </dependency>
+                <version>3.1.2.2</version>
+            </dependency>            
             <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
@@ -1312,19 +1312,19 @@
                 <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
                 <version>${httpclient.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId>
+                <artifactId>httpcore5</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>            
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpmime</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcore</artifactId>
-                <version>4.4.4</version>
+                <version>4.5.14</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.jaxrs</groupId>
