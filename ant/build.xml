@@ -17,14 +17,19 @@
         <echo>${logicaldoc.devroot}</echo>
     </target>
     <target name="init-all" depends="task-definitions">
-        <trycatch property="error" reference="exception">
-            <try>
-                <artifact:pom file="pom.xml" id="pom" />
-            </try>
-            <catch>
-                <echo>${error}</echo>
-            </catch>
-        </trycatch>
+        <if>
+			<available file="pom.xml" />
+			<then>
+              <trycatch property="error" reference="exception">
+                  <try>
+                      <artifact:pom file="pom.xml" id="pom" />
+                  </try>
+                  <catch>
+                      <echo>${error}</echo>
+                  </catch>
+              </trycatch>
+			</then>              
+        </if>              
         <echo>LogicalDOC environment ready</echo>
     </target>
     <target name="schema-export" depends="init-all" description="Sql schema creation from Hibernate mappings">
