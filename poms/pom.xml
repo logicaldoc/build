@@ -1462,6 +1462,11 @@
                 <artifactId>json</artifactId>
                 <version>20240303</version>
             </dependency>
+            <dependency>
+                <groupId>org.brotli</groupId>
+                <artifactId>dec</artifactId>
+                <version>0.1.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>
