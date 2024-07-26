@@ -114,7 +114,6 @@
                 <configuration>
                     <argLine>
                         -Xmx1500m
-                        --illegal-access=permit
                         -XX:+IgnoreUnrecognizedVMOptions                                   
                         --add-opens=java.base/java.lang=ALL-UNNAMED
                         --add-opens=java.base/java.io=ALL-UNNAMED
