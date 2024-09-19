@@ -36,6 +36,7 @@
         <dependency-check-maven.version>7.2.0</dependency-check-maven.version>
         <jdom.version>2.0.6.1</jdom.version>
         <hsqldb.version>2.7.1</hsqldb.version>
+        <zxing.version>3.5.2</zxing.version>
     </properties>
     <build>
         <pluginManagement>
@@ -1482,9 +1483,14 @@
             </dependency>
     		<dependency>
     			<groupId>com.google.zxing</groupId>
+    			<artifactId>core</artifactId>
+    			<version>${zxing.version}</version>
+    		</dependency>
+    		<dependency>
+    			<groupId>com.google.zxing</groupId>
     			<artifactId>javase</artifactId>
-    			<version>3.5.2</version>
-    		</dependency>            
+    			<version>${zxing.version}</version>
+    		</dependency>          
         </dependencies>
     </dependencyManagement>
     <repositories>
