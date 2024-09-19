@@ -4,7 +4,7 @@
     <artifactId>logicaldoc-parent-pom</artifactId>
     <name>logicaldoc-parent-pom</name>
     <packaging>pom</packaging>
-    <version>108</version>
+    <version>109</version>
     <description>Parent pom definition.</description>
     <scm>
         <connection>scm:svn:https://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</connection>
@@ -1480,6 +1480,11 @@
                 <artifactId>commonmark</artifactId>
                 <version>0.22.0</version>
             </dependency>
+    		<dependency>
+    			<groupId>com.google.zxing</groupId>
+    			<artifactId>javase</artifactId>
+    			<version>3.5.2</version>
+    		</dependency>            
         </dependencies>
     </dependencyManagement>
     <repositories>
