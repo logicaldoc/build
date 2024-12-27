@@ -12,7 +12,7 @@
         <url>http://logicaldoc.svn.sourceforge.net/svnroot/logicaldoc/build/poms/trunk</url>
     </scm>
     <properties>
-        <source.level>17</source.level>
+        <source.level>21</source.level>
         <gwt.version>2.12.1</gwt.version>
         <gwt.source.level>11</gwt.source.level>
         <smartgwt.version>13.1p</smartgwt.version>
