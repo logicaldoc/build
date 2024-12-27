@@ -14,7 +14,7 @@
     <properties>
         <source.level>21</source.level>
         <gwt.version>2.12.1</gwt.version>
-        <gwt.source.level>11</gwt.source.level>
+        <gwt.source.level>17</gwt.source.level>
         <smartgwt.version>13.1p</smartgwt.version>
         <smartgwt.skins>Tahoe,Shiva,Simplicity</smartgwt.skins>
         <spring.version>5.3.30</spring.version>
