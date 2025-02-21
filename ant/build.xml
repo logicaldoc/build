@@ -2,6 +2,7 @@
 <project name="logicaldoc" default="init-all" basedir="." xmlns:resolver="antlib:org.apache.maven.resolver.ant">
     <property environment="env" />
     <property file="${user.home}/logicaldoc-dev.properties" />
+    <property name="devroot" location="${basedir}/../.." />
     <path id="ext.classpath">
         <fileset dir="${logicaldoc.devroot}/build/ant/lib">
             <include name="*.jar"/>
@@ -11,7 +12,7 @@
         <taskdef resource="net/sf/antcontrib/antlib.xml">
             <classpath refid="ext.classpath" />
         </taskdef>
-        <echo>${logicaldoc.devroot}</echo>
+        <echo>${devroot}</echo>
     </target>
     <target name="init-all" depends="task-definitions">
         <if>
@@ -31,7 +32,7 @@
     </target>
     <target name="schema-export" depends="init-all" description="Sql schema creation from Hibernate mappings">
         <schemaexport quiet="no" text="yes" drop="no" delimiter=";" output="target/schema-export.sql">
-            <fileset dir="${logicaldoc.devroot}">
+            <fileset dir="${devroot}">
                 <include name="**/src/main/resources/mappings/*.hbm.xml" />
             </fileset>
         </schemaexport>
@@ -41,42 +42,42 @@
         <delete dir="fix-sql-tmp" failonerror="false" />
         <mkdir dir="fix-sql-tmp" />    
         <copy todir="fix-sql-tmp" verbose="true" preservelastmodified="true">
-            <fileset dir="${logicaldoc.devroot}" includes="**/src/main/resources/**/*.sql.mysql"/>
+            <fileset dir="${devroot}" includes="**/src/main/resources/**/*.sql.mysql"/>
             <globmapper from="*.sql.mysql" to="*.sql.mariadb"/>
         </copy>
-        <copy todir="${logicaldoc.devroot}" verbose="true" preservelastmodified="true">
+        <copy todir="${devroot}" verbose="true" preservelastmodified="true">
             <fileset dir="fix-sql-tmp" includes="**"/>
         </copy>
         <delete dir="fix-sql-tmp" failonerror="false" />
     </target>
     <target name="prepare-sql" depends="task-definitions,fix-sql">
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
-        <copy todir="${logicaldoc.devroot}/logicaldoc-sql" flatten="true">
-            <fileset dir="${logicaldoc.devroot}">
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <copy todir="${devroot}/logicaldoc-sql" flatten="true">
+            <fileset dir="${devroot}">
                 <include name="**/src/main/resources/**/*.sql*" />
             </fileset>
         </copy>
-        <zip destfile="${logicaldoc.devroot}/logicaldoc-sql.zip" basedir="${logicaldoc.devroot}/logicaldoc-sql" />
-        <delete dir="${logicaldoc.devroot}/logicaldoc-sql"/>
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
-        <copy file="${logicaldoc.devroot}/logicaldoc-sql.zip" tofile="${logicaldoc.devroot}/logicaldoc-sql-${pom.version}.zip"/>
+        <zip destfile="${devroot}/logicaldoc-sql.zip" basedir="${devroot}/logicaldoc-sql" />
+        <delete dir="${devroot}/logicaldoc-sql"/>
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <copy file="${devroot}/logicaldoc-sql.zip" tofile="${devroot}/logicaldoc-sql-${pom.version}.zip"/>
     </target>
     <target name="prepare-community-sql" depends="task-definitions,fix-sql">
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
-        <copy todir="${logicaldoc.devroot}/logicaldoc-community-sql" flatten="true">
-            <fileset dir="${logicaldoc.devroot}/community">
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <copy todir="${devroot}/logicaldoc-community-sql" flatten="true">
+            <fileset dir="${devroot}/community">
                 <include name="**/src/main/resources/**/*.sql*" />
             </fileset>
         </copy>
-        <zip destfile="${logicaldoc.devroot}/logicaldoc-community-sql.zip" basedir="${logicaldoc.devroot}/logicaldoc-community-sql" />
-        <delete dir="${logicaldoc.devroot}/logicaldoc-community-sql"/>
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
-        <move file="${logicaldoc.devroot}/logicaldoc-community-sql.zip" tofile="${logicaldoc.devroot}/logicaldoc-community-sql-${pom.version}.zip"/>
+        <zip destfile="${devroot}/logicaldoc-community-sql.zip" basedir="${devroot}/logicaldoc-community-sql" />
+        <delete dir="${devroot}/logicaldoc-community-sql"/>
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <move file="${devroot}/logicaldoc-community-sql.zip" tofile="${devroot}/logicaldoc-community-sql-${pom.version}.zip"/>
     </target>
     
     <target name="prepare-src" depends="task-definitions">
-        <copy todir="${logicaldoc.devroot}/logicaldoc-src">
-            <fileset dir="${logicaldoc.devroot}">
+        <copy todir="${devroot}/logicaldoc-src">
+            <fileset dir="${devroot}">
                 <include name="build/**" />
                 <include name="community/**" />
                 <exclude name="build/poms/*.jar" />
@@ -98,8 +99,8 @@
                 <exclude name="**/checkout.sh" />
             </fileset>
         </copy>
-        <copy todir="${logicaldoc.devroot}/logicaldoc-src" failonerror="false">
-            <fileset dir="${logicaldoc.devroot}">
+        <copy todir="${devroot}/logicaldoc-src" failonerror="false">
+            <fileset dir="${devroot}">
                 <include name="enterprise/**" />
                 <exclude name="**/customers/**" />
                 <exclude name="build" />
@@ -125,17 +126,17 @@
                 <exclude name="**/checkout.sh" />
             </fileset>
         </copy>        
-        <copy todir="${logicaldoc.devroot}/logicaldoc-src" file="${logicaldoc.devroot}/build/ant/README.txt" />
-        <zip destfile="${logicaldoc.devroot}/logicaldoc-src.zip" basedir="${logicaldoc.devroot}/logicaldoc-src" />
-        <delete dir="${logicaldoc.devroot}/logicaldoc-src"/>
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
-        <move file="${logicaldoc.devroot}/logicaldoc-src.zip" tofile="${logicaldoc.devroot}/logicaldoc-src-${pom.version}.zip"/>
+        <copy todir="${devroot}/logicaldoc-src" file="${devroot}/build/ant/README.txt" />
+        <zip destfile="${devroot}/logicaldoc-src.zip" basedir="${devroot}/logicaldoc-src" />
+        <delete dir="${devroot}/logicaldoc-src"/>
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <move file="${devroot}/logicaldoc-src.zip" tofile="${devroot}/logicaldoc-src-${pom.version}.zip"/>
     </target>
     
     <target name="prepare-api" depends="task-definitions">
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
 
-        <property name="api.root" value="${logicaldoc.devroot}/logicaldoc-api/${pom.version}" />
+        <property name="api.root" value="${devroot}/logicaldoc-api/${pom.version}" />
         <mkdir dir="${api.root}"/>
         
         <resolver:resolve>
@@ -171,7 +172,7 @@
         </delete>
         
         <copy todir="${api.root}">
-            <fileset dir="${logicaldoc.devroot}/build/ant" includes="compat-*.xml"/>
+            <fileset dir="${devroot}/build/ant" includes="compat-*.xml"/>
             <mapper type="flatten" />
         </copy>
         
@@ -180,42 +181,42 @@
            <replacetoken>RELEASE</replacetoken>
         </replace>
         
-        <zip destfile="${logicaldoc.devroot}/logicaldoc-api.zip" basedir="${api.root}/.." />
+        <zip destfile="${devroot}/logicaldoc-api.zip" basedir="${api.root}/.." />
         <delete dir="${api.root}/.."/>
-        <move file="${logicaldoc.devroot}/logicaldoc-api.zip" tofile="${logicaldoc.devroot}/logicaldoc-api-${pom.version}.zip"/>
+        <move file="${devroot}/logicaldoc-api.zip" tofile="${devroot}/logicaldoc-api-${pom.version}.zip"/>
     </target>    
     
     <target name="prepare-workspace">
-        <copy todir="${logicaldoc.devroot}/logicaldoc-workspace">
-            <fileset dir="${logicaldoc.devroot}">
+        <copy todir="${devroot}/logicaldoc-workspace">
+            <fileset dir="${devroot}">
                 <exclude name="**/target/**" />
                 <!--exclude name="**/.project" /> <exclude name="**/.classpath" /> <exclude name="**/.settings/**" /> <exclude name="**/.metadata/**" /> <exclude name="**/docs/**" /-->
             </fileset>
         </copy>
-        <zip destfile="${logicaldoc.devroot}/logicaldoc-workspace.zip" basedir="${logicaldoc.devroot}/logicaldoc-workspace" />
-        <delete dir="${logicaldoc.devroot}/logicaldoc-workspace"/>
+        <zip destfile="${devroot}/logicaldoc-workspace.zip" basedir="${devroot}/logicaldoc-workspace" />
+        <delete dir="${devroot}/logicaldoc-workspace"/>
     </target>
     <target name="prepare-javadoc" depends="task-definitions">
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
-        <property name="javadoc.root" value="${logicaldoc.devroot}/logicaldoc-javadoc" />
-        <property name="javadoc.archive" value="${logicaldoc.devroot}/logicaldoc-javadoc-${pom.version}.zip" />
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <property name="javadoc.root" value="${devroot}/logicaldoc-javadoc" />
+        <property name="javadoc.archive" value="${devroot}/logicaldoc-javadoc-${pom.version}.zip" />
         <echo>Generate the aggregate javadoc of the Community</echo>
-        <exec executable="mvn.cmd" resolveexecutable="true" searchpath="true" dir="${logicaldoc.devroot}/community/logicaldoc">
+        <exec executable="mvn.cmd" resolveexecutable="true" searchpath="true" dir="${devroot}/community/logicaldoc">
             <arg line="javadoc:aggregate" />
         </exec>
         <copy todir="${javadoc.root}/community">
-            <fileset dir="${logicaldoc.devroot}/community/logicaldoc/target/site/apidocs"/>
+            <fileset dir="${devroot}/community/logicaldoc/target/site/apidocs"/>
         </copy>
         <echo>Generate the aggregate javadoc of the Enterprise</echo>
-        <exec executable="mvn.cmd" resolveexecutable="true" searchpath="true" dir="${logicaldoc.devroot}/enterprise/logicaldoc">
+        <exec executable="mvn.cmd" resolveexecutable="true" searchpath="true" dir="${devroot}/enterprise/logicaldoc">
             <arg line="javadoc:aggregate" />
         </exec>
         <copy todir="${javadoc.root}/enterprise">
-            <fileset dir="${logicaldoc.devroot}/enterprise/logicaldoc/target/site/apidocs" />
+            <fileset dir="${devroot}/enterprise/logicaldoc/target/site/apidocs" />
         </copy>
         <copy file="index.html" tofile="${javadoc.root}/index.html" />
         <copy file=".htaccess" tofile="${javadoc.root}/.htaccess" />
-        <copy file="${logicaldoc.devroot}/community/logicaldoc/logicaldoc-gui/war/skin/images/brand/logo.png" tofile="${javadoc.root}/logo.png" />
+        <copy file="${devroot}/community/logicaldoc/logicaldoc-gui/war/skin/images/brand/logo.png" tofile="${javadoc.root}/logo.png" />
         <tstamp>
             <format property="YEAR" pattern="yyyy" locale="en" />
         </tstamp>
@@ -226,10 +227,10 @@
         <delete dir="${javadoc.root}"/>
     </target>
     <target name="prepare-wsdoc" depends="task-definitions">
-        <resolver:pom file="${logicaldoc.devroot}/community/logicaldoc/pom.xml" id="pom" />
-        <property name="wsdoc.root" value="${logicaldoc.devroot}/logicaldoc-wsdoc" />
+        <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
+        <property name="wsdoc.root" value="${devroot}/logicaldoc-wsdoc" />
         <property name="wsdoc.webapp" value="${wsdoc.root}/webapp" />
-        <property name="wsdoc.archive" value="${logicaldoc.devroot}/logicaldoc-wsdoc-${pom.version}.zip" />
+        <property name="wsdoc.archive" value="${devroot}/logicaldoc-wsdoc-${pom.version}.zip" />
         <mkdir dir="${wsdoc.root}"/>
         <mkdir dir="${wsdoc.webapp}"/>
         
@@ -278,7 +279,7 @@
             <arg value="conversion.webservice.soap.ConversionService" />
             
             <classpath>
-              <!--pathelement path="${logicaldoc.devroot}/community/logicaldoc/logicaldoc-webservice/target/classes"/ -->
+              <!--pathelement path="${devroot}/community/logicaldoc/logicaldoc-webservice/target/classes"/ -->
               <pathelement path="${wsdoc.webapp}/WEB-INF/lib/*"/>
             </classpath>
         </java>
