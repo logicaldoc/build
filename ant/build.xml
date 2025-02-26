@@ -80,10 +80,11 @@
             <fileset dir="${devroot}">
                 <include name="build/**" />
                 <include name="community/**" />
-                <exclude name="build/poms/*.jar" />
+                <exclude name="build/**/*.jar" />
                 <exclude name="community/modules/**" />
                 <exclude name="community/logicaldoc/logicaldoc-benchmark/logs" />
                 <exclude name="community/logicaldoc/logicaldoc-benchmark/report" />
+                <exclude name="**/gwt-unitCache/**" />
                 <exclude name="**/target/**" />
                 <exclude name="**/null/**" />
                 <exclude name="**/war/WEB-INF/classes/**" />
@@ -102,10 +103,12 @@
         <copy todir="${devroot}/logicaldoc-src" failonerror="false">
             <fileset dir="${devroot}">
                 <include name="enterprise/**" />
+                <exclude name="enterprise/logicaldoc-mobile/**" />
                 <exclude name="**/customers/**" />
                 <exclude name="build" />
                 <exclude name="community" />
                 <exclude name="var" />
+                <exclude name="**/gwt-unitCache/**" />
                 <exclude name="**/target/**" />
                 <exclude name="**/launcher/**" />
                 <exclude name="**/ghostscript/**" />
