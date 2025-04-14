@@ -2,3 +2,4 @@
 /poms/target
 /poms/*.jar
 /poms/old/*.jar
+/poms/*.bat
