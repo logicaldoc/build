@@ -277,9 +277,10 @@
             <arg value="audit.webservice.soap.AuditService" />
             <arg value="workflow.webservice.soap.WorkflowService" />
             <arg value="split.webservice.soap.SplitService" />
-            <arg value="via.webservice.soap.VIAService" />
             <arg value="zonalocr.webservice.soap.ZonalOCRService" />
             <arg value="conversion.webservice.soap.ConversionService" />
+            <arg value="ai.webswervice.soap.AIService" />
+            <arg value="robot.webswervice.soap.RobotService" />
             
             <classpath>
               <!--pathelement path="${devroot}/community/logicaldoc/logicaldoc-webservice/target/classes"/ -->
