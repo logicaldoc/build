@@ -57,6 +57,11 @@
                 <include name="**/src/main/resources/**/*.sql*" />
             </fileset>
         </copy>
+        <copy todir="${devroot}/logicaldoc-sql" flatten="true">
+            <fileset dir="${devroot}">
+                <include name="**/logicaldoc-installers/logicaldoc-installer/dist/loader/dbinit/*.sql*" />
+            </fileset>
+        </copy>        
         <zip destfile="${devroot}/logicaldoc-sql.zip" basedir="${devroot}/logicaldoc-sql" />
         <delete dir="${devroot}/logicaldoc-sql"/>
         <resolver:pom file="${devroot}/community/logicaldoc/pom.xml" id="pom" />
