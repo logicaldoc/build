@@ -286,6 +286,7 @@
             <arg value="conversion.webservice.soap.ConversionService" />
             <arg value="ai.webswervice.soap.AIService" />
             <arg value="robot.webswervice.soap.RobotService" />
+            <arg value="calendar.webservice.soap.CalendarService" />
             
             <classpath>
               <!--pathelement path="${devroot}/community/logicaldoc/logicaldoc-webservice/target/classes"/ -->
