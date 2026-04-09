@@ -167,8 +167,27 @@
         <move file="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar" tofile="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar.obf"/>
         <unzip src="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar.obf" dest="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin">
             <patternset>
-                <include name="**/*"/>
-                <exclude name="/com/logicaldoc/enterprise/md4/**"/>
+                <include name="branding/**"/>
+                <include name="context/**"/>
+                <include name="META-INF"/>
+                <include name="sql/**"/>
+                <include name="*.*"/>
+                <include name="com/logicaldoc/core/**"/>
+                <include name="com/logicaldoc/enterprise/*.class"/>
+                <include name="com/logicaldoc/enterprise/a**"/>
+                <include name="com/logicaldoc/enterprise/b**"/>
+                <include name="com/logicaldoc/enterprise/c**"/>
+                <include name="com/logicaldoc/enterprise/d**"/>
+                <include name="com/logicaldoc/enterprise/e**"/>
+                <include name="com/logicaldoc/enterprise/f**"/>
+                <include name="com/logicaldoc/enterprise/j**"/>
+                <include name="com/logicaldoc/enterprise/r**"/>
+                <include name="com/logicaldoc/enterprise/s**"/>
+                <include name="com/logicaldoc/enterprise/t**"/>
+                <include name="com/logicaldoc/enterprise/u**"/>
+                <include name="com/logicaldoc/enterprise/w**"/>
+                <include name="com/logicaldoc/enterprise/office/**"/>
+                <exclude name="com/logicaldoc/enterprise/oO**"/>
             </patternset>
         </unzip>
         <zip destfile="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin.jar" basedir="${api.root}/logicaldoc-enterprise-core-${pom.version}-plugin" />
